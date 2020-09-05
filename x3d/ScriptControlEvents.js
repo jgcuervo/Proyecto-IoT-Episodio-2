@@ -36,14 +36,14 @@ function buttonMotionDone (value)
             motion = new MFVec3f (new SFVec3f(0, 0.05, 0), new SFVec3f(0, 0.25, 0));
             buttonDown = false;
             lightColor = new SFColor (1, 1, 0);
-           httpGet("http://localhost:1880/on");
+           httpGet("http://localhost:1880/interruptor?lead=1");
         } 
         else 
         {
             motion = new MFVec3f (new SFVec3f(0, 0.25, 0), new SFVec3f(0, 0.05, 0));
             buttonDown = true;
             lightColor = new SFColor (0.4, 0.4, 0.4);
-            httpGet("http://localhost:1880/off");
+            httpGet("http://localhost:1880/interruptor?lead=0");
         }
     }
 }
