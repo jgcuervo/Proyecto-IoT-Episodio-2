@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>XHTML DOM access for X_ITE</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://code.create3000.de/x_ite/latest/dist/x_ite.css" type="text/css" media="all"/>
+    <script type="text/javascript" src="https://code.create3000.de/x_ite/latest/dist/x_ite.min.js"></script> 
+    <script type="text/javascript" src="https://raw.githack.com/andreasplesch/x_ite_dom/master/release/x_ite_dom.1.3.js"></script>
+    <style>
+X3DCanvas {
+   width: 768px;
+   height: 432px;
+}
+    </style>
+  </head>
+  <body>
+ 
+    <!-- /* Create a X_ITE browser and define X3D content directly within the element.
+         An Inline node is used here to load a complete scene because the scene is
+         some way larger. */ -->
+    <X3DCanvas>
+      <X3D profile='Full' version='3.3' xmlns='http://www.web3d.org/specifications/x3d-namespace'>
+        <Scene>
+          <Viewpoint position='-2 1 -15' orientation='0 1 0 3.14' description='start'></Viewpoint>
+          <NavigationInfo type='"FLY", "ANY"'></NavigationInfo>
+          <Inline DEF='ExampleWorld' url='"https://cdn.rawgit.com/create3000/Library/master/Examples/Mushrooms/index.x3d"'></Inline>
+        </Scene>
+      </X3D>
+      <p class="fallback">Your browser may not support all features required by X_ITE!</p>
+    </X3DCanvas>
+ 
+    <!-- /* Define a button that will call the »moveHouse« function on click. */ -->
+    <button onclick="moveHouse ()">HTML Button to Move House</button>
+ 
+    <script type="text/javascript">
+function moveHouse ()
+{
+  // Constants
+ 
+  var RANGE = 5;
+ 
+  // Query the Transform with the name »pilzhaus«, get the values of the translation
+  // field, apply some random values to the components of the vector and assign this
+  // modified value again to the translation field of the Transform node. 
+ 
+  var
+    houseTransform = document .querySelector ("[DEF='pilzhaus']"),              // Unique DEF inside inlined inlines.
+    translation    = houseTransform .getAttribute ("translation") .split (" "), // Poor man's parse.
+    x              = 1.0 * translation [0] + RANGE * (Math .random () - 0.5),
+    y              = 1.0 * translation [1],
+    z              = 1.0 * translation [2] + RANGE * (Math .random () - 0.5);
+ 
+  houseTransform .setAttribute ("translation", x + " " + y + " " + z);
+}
+    </script>
+  </body>
+</html>

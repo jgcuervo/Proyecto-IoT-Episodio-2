@@ -1,0 +1,265 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>XHTML DOM access for X_ITE</title>
+		<meta charset="utf-8" />
+
+		<link rel="stylesheet" href="https://code.create3000.de/x_ite/alpha/dist/x_ite.css" type="text/css" media="all" />
+		<script type="text/javascript" src="https://code.create3000.de/x_ite/alpha/dist/x_ite.min.js"></script> 
+		<script type="text/javascript" src="https://raw.githack.com/andreasplesch/x_ite_dom/master/release/x_ite_dom.1.3.js"></script><style>.x_ite-private-menu-title:before { content: "X_ITE Browser" }</style>
+
+	<style>
+
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400);
+
+html, body {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	background: #414141;
+	color: white;
+	font-family: PT Sans;
+	font-size: 12pt;
+}
+
+.browser {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 30px;
+	left: 0px;
+	width: auto;
+	height: auto;
+}
+
+.button {
+	position: absolute;
+	height: 30px;
+	width: 100%;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+}
+
+.html {
+	position: absolute;
+	bottom: 30px;
+	left: 0px;
+	font-size: 24pt;
+	color: black;
+	/* xOffset yOffset blur color */
+	text-shadow: 0px 0px 3px white;
+}
+
+.html p {
+	margin: 20px 30px;
+}
+	</style>
+   <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/annotation.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/annotation.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/cad-geometry.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/cad-geometry.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/cube-map-texturing.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/cube-map-texturing.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/dis.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/dis.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/event-utilities.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/event-utilities.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/geometry2d.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/geometry2d.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/geospatial.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/geospatial.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/h-anim.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/h-anim.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/key-device-sensor.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/key-device-sensor.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/layout.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/layout.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/nurbs.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/nurbs.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/particle-systems.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/particle-systems.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/picking.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/picking.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/projective-texture-mapping.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/projective-texture-mapping.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/rigid-body-physics.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/rigid-body-physics.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/scripting.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/scripting.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/texturing-3d.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/texturing-3d.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/volume-rendering.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/volume-rendering.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://code.create3000.de/x_ite/alpha/dist/assets/components/x_ite.min.js" src="https://code.create3000.de/x_ite/alpha/dist/assets/components/x_ite.min.js"></script></head>
+	<body>
+		<X3DCanvas class="browser" timings="false" tabindex="0"><div class="x_ite-private-browser"><div class="x_ite-private-splash-screen" style="display: none;"><div class="x_ite-private-spinner"></div><div class="x_ite-private-progress"><div class="x_ite-private-x_ite">X_ITE<span class="x_ite-private-x3d">X3D</span></div><div class="x_ite-private-progressbar"><div style="width: 100%;"></div></div><div class="x_ite-private-spinner-text">Loading done</div></div></div><div class="x_ite-private-surface x_ite-private-surface-3 context-menu-active" style="cursor: default; position: relative;"><canvas class="x_ite-private-canvas" width="1280" height="560" style=""></canvas><div class="x_ite-private-notification" style="display: none; width: 0px;"><span></span></div><div class="x_ite-private-browser-timings"><table><thead><tr><th colspan="2"></th></tr></thead><tbody></tbody><tfoot><tr><td colspan="2"><button type="button">More Properties</button></td></tr></tfoot></table></div><div dir="ltr" class="resize-sensor" style="pointer-events: none; position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;"><div class="resize-sensor-expand" style="pointer-events: none; position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 1290px; height: 570px;"></div></div><div class="resize-sensor-shrink" style="pointer-events: none; position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 200%; height: 200%;"></div></div></div></div></div>
+			<img class="fallback" src="XHTML.png" style="display: none;" />
+			<X3D xmlns="http://www.web3d.org/specifications/x3d-namespace" id="spheres">
+ 				<Scene DEF="scene">
+					<Viewpoint position="16.0328 13.056 34.2417" orientation="-0.624839 0.780206 0.0292506 0.543473"/>
+    				<Background skyColor="1 1 1"/>
+    
+					<Transform scale="2.5 2.5 2.5">
+						<Shape DEF="CUBE1">
+ 							<Appearance>
+								<Material specularColor=".2 .2 .2"/>
+								<ImageTexture url="&quot;textures/x3d_256.jpg&quot;"/>
+							</Appearance>
+							<Box/>
+						</Shape>
+						<Shape DEF="CUBE2">
+							<Appearance>
+								<Material specularColor=".2 .2 .2"/>
+								<ImageTexture url="&quot;textures/webgl_256.jpg&quot;"/>
+							</Appearance>
+							<Box/>
+						</Shape>
+						<Shape DEF="CUBE3">
+							<Appearance>
+								<Material specularColor=".2 .2 .2"/>
+								<ImageTexture url="&quot;textures/w3c_256.jpg&quot;"/>
+							</Appearance>
+							<Box/>
+						</Shape>
+						<Shape DEF="CUBE4">
+							<Appearance>
+								<Material specularColor=".2 .2 .2"/>
+								<ImageTexture url="&quot;textures/web3d_256.jpg&quot;"/>
+							</Appearance>
+							<Box/>
+						</Shape>
+						<Transform DEF="XFORM0a" center="0 0 10">
+							<Shape USE="CUBE1"/>
+						</Transform>
+						<Transform DEF="XFORM0b" center="0 7 7">
+							<Shape USE="CUBE2"/>
+						</Transform>
+						<Transform DEF="XFORM0c" center="10 0 0">
+							<Shape USE="CUBE3"/>
+						</Transform>
+						<Transform DEF="XFORM0d" center="0 10 0">
+							<Shape USE="CUBE4"/>
+						</Transform>
+						<Transform DEF="XFORM1a">
+							<Transform USE="XFORM0a"/>
+							<Transform USE="XFORM0b"/>
+							<Transform USE="XFORM0c"/>
+							<Transform USE="XFORM0d"/>
+						</Transform>
+						<Transform DEF="XFORM1b">
+							<Transform USE="XFORM0a"/>
+							<Transform USE="XFORM0b"/>
+							<Transform USE="XFORM0c"/>
+							<Transform USE="XFORM0d"/>
+						</Transform>
+						<Transform DEF="XFORM1c">
+							<Transform USE="XFORM0a"/>
+							<Transform USE="XFORM0b"/>
+							<Transform USE="XFORM0c"/>
+							<Transform USE="XFORM0d"/>
+						</Transform>
+						<Transform DEF="XFORM1d">
+							<Transform USE="XFORM0a"/>
+							<Transform USE="XFORM0b"/>
+							<Transform USE="XFORM0c"/>
+							<Transform USE="XFORM0d"/>
+						</Transform>
+						<Transform DEF="XFORM2a">
+							<Transform USE="XFORM1a"/>
+							<Transform USE="XFORM1b"/>
+							<Transform USE="XFORM1c"/>
+							<Transform USE="XFORM1d"/>
+						</Transform>
+						<Transform DEF="XFORM2b">
+							<Transform USE="XFORM1a"/>
+							<Transform USE="XFORM1b"/>
+							<Transform USE="XFORM1c"/>
+							<Transform USE="XFORM1d"/>
+						</Transform>
+						<Transform DEF="XFORM2c">
+							<Transform USE="XFORM1a"/>
+							<Transform USE="XFORM1b"/>
+							<Transform USE="XFORM1c"/>
+							<Transform USE="XFORM1d"/>
+						</Transform>
+						<Transform DEF="XFORM2d">
+							<Transform USE="XFORM1a"/>
+							<Transform USE="XFORM1b"/>
+							<Transform USE="XFORM1c"/>
+							<Transform USE="XFORM1d"/>
+						</Transform>
+					</Transform>
+					<Transform DEF="TREE">
+						<Transform USE="XFORM2a"/>
+						<Transform USE="XFORM2b"/>
+						<Transform USE="XFORM2c"/>
+						<Transform USE="XFORM2d"/>
+					</Transform>
+	
+					<TimeSensor DEF="TIMER" cycleInterval="30" loop="true"/>
+					<OrientationInterpolator DEF="ROTOR_A" key="0 0.5 1" keyValue="1 0 0 0, 1 0 0 3.14, 1 0 0 6.28"/>
+					<OrientationInterpolator DEF="ROTOR_B" key="0 0.5 1" keyValue="0 1 0 0, 0 1 0 3.14, 0 1 0 6.28"/>
+					<OrientationInterpolator DEF="ROTOR_C" key="0 0.5 1" keyValue="0 0 1 0, 0 0 1 3.14, 0 0 1 6.28"/>
+					<OrientationInterpolator DEF="ROTOR_D" key="0 0.5 1" keyValue="0.707 0 0.707 0, 0.707 0 0.707 3.14, 0.707 0 0.707 6.28"/>
+					<PositionInterpolator DEF="POS_A" key="0 0.5 1" keyValue="0 0 0, 2 0 0, 0 0 0"/>
+					<ROUTE fromNode="TIMER" fromField="fraction_changed" toNode="ROTOR_A" toField="set_fraction"/>
+					<ROUTE fromNode="TIMER" fromField="fraction_changed" toNode="ROTOR_B" toField="set_fraction"/>
+					<ROUTE fromNode="TIMER" fromField="fraction_changed" toNode="ROTOR_C" toField="set_fraction"/>
+					<ROUTE fromNode="TIMER" fromField="fraction_changed" toNode="ROTOR_D" toField="set_fraction"/>
+					<ROUTE fromNode="ROTOR_A" fromField="value_changed" toNode="XFORM0a" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_A" fromField="value_changed" toNode="XFORM1a" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_A" fromField="value_changed" toNode="XFORM2a" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_B" fromField="value_changed" toNode="XFORM0b" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_B" fromField="value_changed" toNode="XFORM1b" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_B" fromField="value_changed" toNode="XFORM2b" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_C" fromField="value_changed" toNode="XFORM0c" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_C" fromField="value_changed" toNode="XFORM1c" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_C" fromField="value_changed" toNode="XFORM2c" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_D" fromField="value_changed" toNode="XFORM0d" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_D" fromField="value_changed" toNode="XFORM1d" toField="rotation"/>
+					<ROUTE fromNode="ROTOR_D" fromField="value_changed" toNode="XFORM2d" toField="rotation"/>
+				</Scene>
+			</X3D>
+		</X3DCanvas>
+		
+		<div class="html">
+			<p>
+				XHTML and X_ITE can<br />
+				seamlessly operate together
+			</p>
+		</div>
+
+		<button id="toggleAnimation" class="button input input-button" onclick="toggleAnimation ()">HTML Button to Toggle Animation</button>
+
+		<script>
+var routeA, routeB, routeC, routeD;
+var scene = document .querySelector ('Scene');
+
+function toggleAnimation ()
+{
+	freezeA ();
+	freezeB ();
+	freezeC ();
+	freezeD ();
+}
+
+function freezeA ()
+{
+	var el = document .querySelector ('ROUTE[fromNode="TIMER"][toNode="ROTOR_A"]');
+	
+	if (el)
+	{
+		routeA = el;
+		el .remove ();
+	}
+	else { scene.appendChild (routeA); }
+}
+
+function freezeB ()
+{
+	var el = document .querySelector ('ROUTE[fromNode="TIMER"][toNode="ROTOR_B"]');
+	
+	if (el)
+	{
+		routeB = el;
+		el.remove();
+	}
+	else { scene.appendChild (routeB); }
+}
+
+function freezeC ()
+{
+	var el = document .querySelector ('ROUTE[fromNode="TIMER"][toNode="ROTOR_C"]');
+	
+	if (el)
+	{
+		routeC = el;
+		el.remove();
+	}
+	else { scene.appendChild (routeC); }
+}
+
+function freezeD ()
+{
+	var el = document .querySelector ('ROUTE[fromNode="TIMER"][toNode="ROTOR_D"]');
+	
+	if (el)
+	{
+		routeD = el;
+		el.remove();
+	}
+	else { scene.appendChild (routeD); }
+}
+		</script>
+	<div id="context-menu-layer" style="height: 1024px; width: 1280px; display: none; position: fixed; z-index: 1; top: 0px; left: 0px; opacity: 0; background-color: rgb(0, 0, 0);"></div><ul class="context-menu-list x_ite-private-menu x_ite-private-menu-title context-menu-root" style="width: 169px; top: 289px; left: 636px; z-index: 1;"><li class="context-menu-item context-menu-separator context-menu-not-selectable"></li><li class="context-menu-item context-menu-icon x_ite-private-icon-examine-viewer context-menu-visible"><span>Examine Viewer</span></li><li class="context-menu-item context-menu-submenu"><span>Available Viewers</span><ul class="context-menu-list" style="width: 135px; z-index: 2; top: -9px; left: 164px;"><li class="context-menu-item context-menu-icon x_ite-private-icon-examine-viewer context-menu-selected"><span>Examine Viewer</span></li><li class="context-menu-item context-menu-icon x_ite-private-icon-walk-viewer"><span>Walk Viewer</span></li><li class="context-menu-item context-menu-icon x_ite-private-icon-fly-viewer"><span>Fly Viewer</span></li><li class="context-menu-item context-menu-icon x_ite-private-icon-plane-viewer"><span>Plane Viewer</span></li><li class="context-menu-item context-menu-icon x_ite-private-icon-lookat-viewer"><span>Look At Viewer</span></li><li class="context-menu-item context-menu-icon x_ite-private-icon-none-viewer"><span>None Viewer</span></li></ul></li><li class="context-menu-item context-menu-input"><label><input type="checkbox" value="" name="context-menu-input-straighten-horizon" /><span>Straighten Horizon</span></label></li><li class="context-menu-item context-menu-separator context-menu-not-selectable"></li><li class="context-menu-item context-menu-icon x_ite-private-icon-primitive-quality context-menu-submenu"><span>Primitive Quality</span><ul class="context-menu-list context-menu-icon x_ite-private-icon-primitive-quality" style="width: 120px; z-index: 2;"><li class="context-menu-item context-menu-input"><label><input type="radio" value="" name="context-menu-input-primitive-quality" /><span>High</span></label></li><li class="context-menu-item context-menu-input"><label><input type="radio" value="" name="context-menu-input-primitive-quality" /><span>Medium</span></label></li><li class="context-menu-item context-menu-input"><label><input type="radio" value="" name="context-menu-input-primitive-quality" /><span>Low</span></label></li></ul></li><li class="context-menu-item context-menu-icon x_ite-private-icon-texture-quality context-menu-submenu"><span>Texture Quality</span><ul class="context-menu-list context-menu-icon x_ite-private-icon-texture-quality" style="width: 120px; z-index: 2;"><li class="context-menu-item context-menu-input"><label><input type="radio" value="" name="context-menu-input-texture-quality" /><span>High</span></label></li><li class="context-menu-item context-menu-input"><label><input type="radio" value="" name="context-menu-input-texture-quality" /><span>Medium</span></label></li><li class="context-menu-item context-menu-input"><label><input type="radio" value="" name="context-menu-input-texture-quality" /><span>Low</span></label></li></ul></li><li class="context-menu-item context-menu-input"><label><input type="checkbox" value="" name="context-menu-input-display-rubberband" /><span>Display Rubberband</span></label></li><li class="context-menu-item context-menu-icon x_ite-private-icon-leave-fullscreen"><span>Leave Fullscreen</span></li><li class="context-menu-item context-menu-separator context-menu-not-selectable"></li><li class="context-menu-item context-menu-icon x_ite-private-icon-help-about"><span>About X_ITE</span></li></ul></body>
+</html>
